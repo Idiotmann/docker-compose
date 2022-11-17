@@ -1,0 +1,33 @@
+#声明版本 注意对齐
+version: '3'
+services:
+  #声明服务名称
+  consul-zhang:
+    #使用的镜像
+    image: consul
+    #端口映射
+    ports:
+      - "8500:8500"
+    #链路追踪
+  yaeger-zhang:
+    image:  jaegertracing/all-in-one
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+ #熔断器
+  hystrix-dashboard-zhang:
+    image: cap1573/hystrix-dashboard
+    ports:
+      - "9002:9002"
+  #监控
+  prometheus-zhang:
+        image: prom/prometheus
+        ports:
+        - "9090:9090"
+        volumes:
+          - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #监控看板
+  grafana-zhang:
+        image: grafana/grafana
+        ports:
+        - "3000:3000"
